@@ -8,9 +8,9 @@ var Tempo = function(options){
 
   var tick = function(){
     if(current <= interval){
-      onTick({value: current, mode: 'resetting'});
+      onTick({value: padZeros(current), mode: 'resetting'});
     } else {
-      onTick({value: humanTime(current), mode: 'countingDown'});
+      onTick({value: padZeros(humanTime(current)), mode: 'countingDown'});
     }
     tock();
     nextTick = setTimeout(tick, 1000);
@@ -26,6 +26,14 @@ var Tempo = function(options){
 
   var humanTime = function(){
     return current - interval;
+  };
+
+  var padZeros = function(num){
+    if (num < 10){
+      return "0" + num;
+    } else {
+      return num;
+    }
   };
 
   // Initialize
